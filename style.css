@@ -553,3 +553,30 @@ body {
   min-width: 180px;
   font-size: 1.1rem;
 }
+
+#typing {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+#typing .highlight {
+  color: var(--highlight-color);
+}
+
+#typing::after {
+  content: "|";
+  animation: blink 1s infinite;
+  margin-left: 5px;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}

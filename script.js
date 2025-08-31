@@ -93,4 +93,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Set current year in footer
   document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+  // Typing Animation for Home Title
+  const typingElement = document.getElementById("typing");
+  if (typingElement) {
+    const texts = ['Halo, saya <span class="highlight">RAIHAN NUR DAFFA</span>'];
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let delay = 100;
+
+    function type() {
+      const currentText = texts[textIndex];
+      let displayed = currentText.substring(0, charIndex);
+
+      typingElement.innerHTML = displayed;
+
+      if (!isDeleting && charIndex < currentText.length) {
+        charIndex++;
+        delay = 100;
+      } else if (isDeleting && charIndex > 0) {
+        charIndex--;
+        delay = 50;
+      } else {
+        isDeleting = !isDeleting;
+        delay = isDeleting ? 1200 : 500;
+      }
+      setTimeout(type, delay);
+    }
+    type();
+  }
 });
