@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(section);
   });
 
-  // Form Validation
+  // Form Validation & EmailJS Integration
   const contactForm = document.getElementById("contactForm");
   contactForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -84,8 +84,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const message = document.getElementById("message").value;
 
     if (name && email && message) {
-      alert("Pesan berhasil dikirim!");
-      contactForm.reset();
+      // Kirim email via EmailJS
+      emailjs.init("YOUR_USER_ID"); // Ganti dengan user ID dari EmailJS
+      emailjs
+        .send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+          from_name: name,
+          from_email: email,
+          message: message,
+          to_email: "nurdaffaraihan46@gmail.com",
+        })
+        .then(
+          function () {
+            alert("Pesan berhasil dikirim!");
+            contactForm.reset();
+          },
+          function (error) {
+            alert("Gagal mengirim pesan. Silakan coba lagi.");
+          }
+        );
     } else {
       alert("Mohon lengkapi semua field.");
     }
