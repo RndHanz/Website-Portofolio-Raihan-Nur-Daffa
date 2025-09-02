@@ -49,9 +49,18 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
       e.preventDefault();
-      document.querySelector(this.getAttribute("href")).scrollIntoView({
-        behavior: "smooth",
-      });
+      const target = document.querySelector(this.getAttribute("href"));
+      if (target) {
+        target.classList.remove("visible"); // reset animasi
+        setTimeout(() => {
+          target.scrollIntoView({
+            behavior: "smooth",
+          });
+          setTimeout(() => {
+            target.classList.add("visible"); // trigger animasi zoom-in
+          }, 300); // delay agar animasi muncul setelah scroll
+        }, 50);
+      }
     });
   });
 
@@ -74,6 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
   sections.forEach((section) => {
     observer.observe(section);
   });
+
+  // Animasi zoom-in untuk section home saat pertama kali website dibuka
+  const homeSection = document.getElementById("home");
+  if (homeSection) {
+    setTimeout(() => {
+      homeSection.classList.add("visible");
+    }, 100); // delay sedikit agar smooth
+  }
 
   // Form Validation & EmailJS Integration
   const contactForm = document.getElementById("contactForm");
